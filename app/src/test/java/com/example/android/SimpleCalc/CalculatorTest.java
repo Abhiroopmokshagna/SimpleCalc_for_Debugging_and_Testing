@@ -25,6 +25,7 @@ import org.junit.runners.JUnit4;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.number.IsCloseTo.closeTo;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -53,6 +54,57 @@ public class CalculatorTest {
         assertThat(resultAdd, is(equalTo(2d)));
     }
 
+    @Test
+    public void addTwoNegativeNumbers(){
+        double resultAdd = mCalculator.add(-1d, 2d);
+        assertThat(resultAdd, is(equalTo(1d)));
+    }
 
+    @Test
+    public void addTwoFloatNumbers(){
+        double resultAdd = mCalculator.add(1.111f,1.111d);
+        assertThat(resultAdd,is(closeTo(2.222d,0.01)));
+    }
 
+    @Test
+    public void divTwoNumbersZero() {
+        double resultDiv = mCalculator.div(32d,0);
+        assertThat(resultDiv, is(equalTo(Double.POSITIVE_INFINITY)));
+    }
+
+    @Test
+    public void powpositivenums(){
+        double result = mCalculator.pow(2d,4d);
+        assertThat(result,is(equalTo(16d)));
+    }
+    @Test
+    public void powfirstnegative(){
+        double result = mCalculator.pow(-2d,3d);
+        assertThat(result,is(equalTo(-8d)));
+    }
+    @Test
+    public void powsecondnegative(){
+        double result = mCalculator.pow(2d,-1d);
+        assertThat(result,is(equalTo(0.5d)));
+    }
+    @Test
+    public void powfirstzero(){
+        double result = mCalculator.pow(0d,3d);
+        assertThat(result,is(equalTo(0d)));
+    }
+    @Test
+    public void powsecondzero(){
+        double result = mCalculator.pow(-2d,0d);
+        assertThat(result,is(equalTo(1d)));
+    }
+    @Test
+    public void powfirstzerosecondminus(){
+        double result = mCalculator.pow(0d,-3d);
+        assertThat(result,is(equalTo(Double.POSITIVE_INFINITY)));
+    }
+    @Test
+    public void powfirstminuszerosecondnegative(){
+        double result = mCalculator.pow(-0d,-3d);
+        assertThat(result,is(equalTo(Double.NEGATIVE_INFINITY)));
+    }
 }
